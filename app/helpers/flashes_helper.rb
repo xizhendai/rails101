@@ -1,6 +1,8 @@
 module FlashesHelper
   FLASH_CLASSES = {alert: "danger", notice: "success", warning: "warning"}.freeze
   def flash_class(key)
+    logger.info key
+    logger.info key.to_sym
     FLASH_CLASSES.fetch key.to_sym, key
   end
   def user_facing_flashes
