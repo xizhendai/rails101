@@ -39,6 +39,29 @@ class GroupsController < ApplicationController
 		flash[:alert]="Group deleted"
 		redirect_to groups_path
 	end
+  
+  def join
+    @group = Group.find(params[:id])
+    if !current_user.is_member_of?(@group)
+      current_user.join!(@group)
+      flash[:notice] = "Join successfully!"
+    else
+      flash[:warning] = "You are already a member"
+    end
+    redirect_to group_path(@group)
+  end
+  
+  def quit
+    @group = Group.find(params[:id])
+    if current_user.is_member_of?(@group)
+      current_user.quit!(@group)
+      flash[:alert] = "You have already withdrawn from this forum"
+    else
+      flash[:warning] = "You are not membership"
+    end
+    redirect_to group_path(@group)
+  end
+      
 	private
 	
   def find_group_and_check_permission
