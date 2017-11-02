@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
 	end
 	def create
 		@group = Group.new(group_params)
-    @group.user = current_user
+                @group.user = current_user
 		if @group.save
 			redirect_to group_path(@group)
 		else
@@ -18,6 +18,7 @@ class GroupsController < ApplicationController
 	end
 	def show
 		@group = Group.find(params[:id])
+		@posts = @group.posts
 	end
 	
 	def edit

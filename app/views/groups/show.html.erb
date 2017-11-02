@@ -1,4 +1,5 @@
 <div class="col-md-12">
+  <%= link_to("Write a Post", new_group_post_path(@group), class: "btn btn-default pull-right")%>
   <% if current_user && current_user == @group.user %>
   <div class="group">
     <%= link_to("Edit", edit_group_path(@group), class: "btn btn-primary pull-right") %>
@@ -6,4 +7,23 @@
   <% end %>
   <h2><%= @group.title %></h2>
   <p><%= @group.description %></p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Content</th>
+        <th>Author</th>
+        <th>Publish time</th>
+      </tr>
+    <thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td><%= post.content %></td>
+          <td><%= post.user.email %></td>
+          <td><%= post.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 </div>
